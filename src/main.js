@@ -183,6 +183,7 @@ function loop(now) {
     if (distFromCenter > REFETCH_DISTANCE) refetchAround(car.lat, car.lon);
 
     syncCarMesh(traveled);
+    scene3d.updateTiles(car.lat, car.lon);
     scene3d.updateCamera(car, dt);
     scene3d.render();
     if (minimap) minimap.render(car);

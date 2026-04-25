@@ -9,6 +9,7 @@
 import * as THREE from 'three';
 import { Sky } from 'three/addons/objects/Sky.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { SatelliteTiles } from './tiles.js';
 
 const ROAD_COLOR    = 0x2a2d33;
 const ROAD_OUTLINE  = 0x3a3e46;
@@ -44,6 +45,10 @@ export class Scene3D {
         this.#initLights();
         this.#initSky();
         this.#initGround();
+
+        this.tiles = new SatelliteTiles();
+        this.scene.add(this.tiles.group);
+
         this.resize();
     }
 
@@ -121,6 +126,12 @@ export class Scene3D {
 
         this.buildingMesh = buildBuildingsMesh(osm.buildings, projection);
         if (this.buildingMesh) this.scene.add(this.buildingMesh);
+
+        this.tiles.setProjection(projection);
+    }
+
+    updateTiles(lat, lon) {
+        this.tiles.update(lat, lon);
     }
 
     addObject(obj) { this.scene.add(obj); }
