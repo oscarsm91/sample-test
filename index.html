@@ -3,80 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#0b0d12">
+    <meta name="theme-color" content="#0e1322">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="OSM Drive">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <title>OSM Drive — Conduce por tu ciudad</title>
+    <title>Arrows — Puzzle Escape</title>
     <link rel="stylesheet" href="style.css">
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://unpkg.com/three@0.163.0/build/three.module.js",
-            "three/addons/": "https://unpkg.com/three@0.163.0/examples/jsm/"
-        }
-    }
-    </script>
 </head>
 <body>
-    <canvas id="game"></canvas>
-
-    <div id="hud">
-        <div class="hud-left">
-            <div class="speedo">
-                <div class="speed-value"><span id="speed">0</span><span class="speed-unit">km/h</span></div>
-                <div class="gear">Marcha: <span id="gear">N</span></div>
+    <main class="app">
+        <header class="topbar">
+            <div class="lives" id="lives" aria-label="Vidas restantes"></div>
+            <div class="level-info">
+                <div class="level-label">Nivel</div>
+                <div class="level-num" id="level-num">1</div>
             </div>
-        </div>
-        <div class="hud-right">
-            <div id="status" class="status"></div>
-            <div id="coords" class="coords"></div>
-        </div>
-    </div>
+            <button class="icon-btn" id="restart" title="Reiniciar nivel" aria-label="Reiniciar nivel">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+            </button>
+        </header>
 
-    <div id="warning" class="warning hidden">¡Fuera de carretera!</div>
-
-    <div id="minimap-wrap" class="minimap-wrap">
-        <canvas id="minimap" width="220" height="220"></canvas>
-        <div class="minimap-north">N</div>
-    </div>
-
-    <div id="loader" class="loader">
-        <div class="loader-card">
-            <h1>OSM Drive</h1>
-            <p id="loader-msg">Pidiendo tu ubicación…</p>
-            <div class="controls-help">
-                <h3>Controles</h3>
-                <ul>
-                    <li><b>W / ↑</b> Acelerar</li>
-                    <li><b>S / ↓</b> Frenar / marcha atrás</li>
-                    <li><b>A D / ← →</b> Girar</li>
-                    <li><b>Espacio</b> Freno de mano</li>
-                    <li><b>R</b> Reiniciar posición</li>
-                    <li><b>C</b> Cambiar cámara</li>
-                </ul>
-                <p class="tap-hint">En móvil: toca los botones en pantalla.</p>
+        <section class="board-wrap">
+            <div class="board" id="board"></div>
+            <div class="board-overlay hidden" id="overlay">
+                <div class="overlay-card">
+                    <div class="overlay-emoji" id="overlay-emoji">🎉</div>
+                    <h2 id="overlay-title">¡Nivel completado!</h2>
+                    <p id="overlay-text">Buen razonamiento.</p>
+                    <button class="primary" id="overlay-action">Siguiente</button>
+                </div>
             </div>
-            <button id="start-btn" disabled>Cargando…</button>
-            <button id="fallback-btn" class="secondary">Empezar en Madrid</button>
-        </div>
-    </div>
+        </section>
 
-    <div id="touch-controls" class="touch-controls hidden">
-        <div class="touch-left">
-            <button class="touch-btn" data-key="ArrowLeft">◀</button>
-            <button class="touch-btn" data-key="ArrowRight">▶</button>
-        </div>
-        <div class="touch-right">
-            <button class="touch-btn" data-key="ArrowUp">▲</button>
-            <button class="touch-btn" data-key="ArrowDown">▼</button>
-            <button class="touch-btn brake" data-key="Space">P</button>
-        </div>
-    </div>
-
-    <div class="attribution">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · Imagery © Esri, Maxar, Earthstar Geographics</div>
+        <footer class="hint" id="hint">
+            Pulsa una flecha. Sale si tiene camino libre hasta el borde en la dirección que apunta.
+        </footer>
+    </main>
 
     <script type="module" src="src/main.js"></script>
 </body>
