@@ -17,17 +17,26 @@
                 <div class="level-label">Nivel</div>
                 <div class="level-num" id="level-num">1</div>
             </div>
-            <button class="icon-btn" id="restart" title="Reiniciar nivel" aria-label="Reiniciar nivel">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
-            </button>
+            <div class="topbar-right">
+                <div class="stars-total" title="Estrellas totales">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>
+                    <span id="total-stars">0</span>
+                </div>
+                <button class="icon-btn" id="mute" title="Silenciar" aria-label="Silenciar"></button>
+                <button class="icon-btn" id="restart" title="Reiniciar nivel" aria-label="Reiniciar nivel">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+                </button>
+            </div>
         </header>
 
         <section class="board-wrap">
             <div class="board" id="board"></div>
+            <div class="trail-layer" id="trail-layer" aria-hidden="true"></div>
             <div class="board-overlay hidden" id="overlay">
                 <div class="overlay-card">
                     <div class="overlay-emoji" id="overlay-emoji">🎉</div>
                     <h2 id="overlay-title">¡Nivel completado!</h2>
+                    <div class="overlay-stars" id="overlay-stars"></div>
                     <p id="overlay-text">Buen razonamiento.</p>
                     <button class="primary" id="overlay-action">Siguiente</button>
                 </div>
@@ -35,9 +44,11 @@
         </section>
 
         <footer class="hint" id="hint">
-            Pulsa una flecha. Sale si tiene camino libre hasta el borde en la dirección que apunta.
+            Las flechas con borde brillante tienen camino libre. Pulsa en orden para vaciar el tablero.
         </footer>
     </main>
+
+    <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
 
     <script type="module" src="src/main.js"></script>
 </body>
