@@ -56,6 +56,7 @@ export class Input {
         // Mostrar controles táctiles si es móvil
         if ('ontouchstart' in window) {
             document.getElementById('touch-controls').classList.remove('hidden');
+            document.body.classList.add('touch-mode');
         }
     }
 

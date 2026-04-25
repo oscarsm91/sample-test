@@ -7,6 +7,7 @@ import { Input } from './input.js';
 import { EngineSound } from './audio.js';
 import { Scene3D } from './scene.js';
 import { buildCarMesh, spinWheels } from './car3d.js';
+import { Minimap } from './minimap.js';
 
 const FALLBACK_LOCATION = { lat: 40.4168, lon: -3.7038 }; // Madrid (Sol)
 const REFETCH_DISTANCE = 700;
@@ -22,7 +23,7 @@ const coordsEl    = document.getElementById('coords');
 const warningEl   = document.getElementById('warning');
 const canvas      = document.getElementById('game');
 
-let scene3d, car, projection, collision, input, engine, carMesh;
+let scene3d, car, projection, collision, input, engine, carMesh, minimap;
 let osmCenter = null;
 let lastTimestamp = 0;
 let starting = { lat: 0, lon: 0 };
@@ -89,6 +90,8 @@ async function initWorld(loc) {
     projection = makeLocalProjection(loc.lat, loc.lon);
     collision = new CollisionIndex(projection, osm);
     scene3d.setOSM(osm, projection);
+    if (!minimap) minimap = new Minimap(document.getElementById('minimap'));
+    minimap.setOSM(osm, projection);
 
     if (!carMesh) {
         carMesh = buildCarMesh();
@@ -182,6 +185,7 @@ function loop(now) {
     syncCarMesh(traveled);
     scene3d.updateCamera(car, dt);
     scene3d.render();
+    if (minimap) minimap.render(car);
 
     updateHUD();
     engine.update(car.speed, input.state.throttle);
@@ -226,6 +230,7 @@ async function refetchAround(lat, lon) {
         const m = projection.toMeters(car.lat, car.lon);
         car.x = m.x; car.y = m.y;
         scene3d.setOSM(osm, projection);
+        if (minimap) minimap.setOSM(osm, projection);
         osmCenter = { lat, lon };
         setStatus('');
     } catch (err) {
