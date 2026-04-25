@@ -92,10 +92,15 @@ function parseOverpass(data) {
                 coords,
             });
         } else if (tags.building) {
+            let height;
+            if (tags.height) height = parseFloat(tags.height);
+            else if (tags['building:levels']) height = parseFloat(tags['building:levels']) * 3.2;
+            if (!isFinite(height)) height = undefined;
             buildings.push({
                 id: el.id,
                 kind: tags.building,
                 coords,
+                height,
             });
         }
     }

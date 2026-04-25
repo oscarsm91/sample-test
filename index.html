@@ -10,12 +10,18 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <title>OSM Drive — Conduce por tu ciudad</title>
-    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
     <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.163.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.163.0/examples/jsm/"
+        }
+    }
+    </script>
 </head>
 <body>
-    <div id="map"></div>
-    <canvas id="overlay"></canvas>
+    <canvas id="game"></canvas>
 
     <div id="hud">
         <div class="hud-left">
@@ -44,6 +50,7 @@
                     <li><b>A D / ← →</b> Girar</li>
                     <li><b>Espacio</b> Freno de mano</li>
                     <li><b>R</b> Reiniciar posición</li>
+                    <li><b>C</b> Cambiar cámara</li>
                 </ul>
                 <p class="tap-hint">En móvil: toca los botones en pantalla.</p>
             </div>
@@ -64,7 +71,8 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <div class="attribution">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors</div>
+
     <script type="module" src="src/main.js"></script>
 </body>
 </html>
